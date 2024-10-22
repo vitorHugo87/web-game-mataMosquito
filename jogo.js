@@ -3,6 +3,19 @@ var largura;
 var vidas = 1;
 var tempo = 10;
 
+var criaMoscaTempo = 1500;
+
+var nivel = window.location.search;
+nivel = nivel.replace('?', '');
+
+if (nivel === 'normal') {
+    criaMoscaTempo = 1500;
+} else if (nivel === 'dificil') {
+    criaMoscaTempo = 1000;
+} else if (nivel === 'extremo') {
+    criaMoscaTempo = 750;
+}
+
 function ajustaTamanhoPalcoJogo() {
     altura = window.innerHeight;
     largura = window.innerWidth;
@@ -12,7 +25,7 @@ function ajustaTamanhoPalcoJogo() {
 
 ajustaTamanhoPalcoJogo();
 
-var cronometro = setInterval(function() {
+var cronometro = setInterval(function () {
     tempo--;
     if (tempo < 0) {
         clearInterval(cronometro);
@@ -26,10 +39,10 @@ var cronometro = setInterval(function() {
 function posicaoRandomica() {
 
     //Remover o mosquito anterior (caso exista)
-    if(document.getElementById('mosquito')) {
+    if (document.getElementById('mosquito')) {
         document.getElementById('mosquito').remove();
 
-        if(vidas > 3){
+        if (vidas > 3) {
             window.location.href = 'game_over.html';
         } else {
             document.getElementById('v' + vidas).src = 'imagens/coracao_vazio.png';
@@ -42,9 +55,9 @@ function posicaoRandomica() {
 
     posicaoX = (posicaoX < 0) ? 0 : posicaoX;
     posicaoY = (posicaoY < 0) ? 0 : posicaoY;
-    
+
     console.log(posicaoX, posicaoY);
-    
+
     //Criar o elemento HTML
     var mosca = document.createElement('img');
     mosca.src = 'imagens/mosca.png';
@@ -56,13 +69,13 @@ function posicaoRandomica() {
     mosca.onclick = function () {
         this.remove()
     }
-    
+
     document.body.appendChild(mosca);
 }
 
 function tamanhoAleatorio() {
     var classe = Math.floor(Math.random() * 3);
-    switch(classe) {
+    switch (classe) {
         case 0:
             return 'mosquito1';
         case 1:
@@ -74,7 +87,7 @@ function tamanhoAleatorio() {
 
 function ladoAleatorio() {
     var lado = Math.floor(Math.random() * 2);
-    switch(lado) {
+    switch (lado) {
         case 0:
             return 'ladoA';
         case 1:
